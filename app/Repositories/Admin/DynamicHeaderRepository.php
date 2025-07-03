@@ -372,7 +372,7 @@ class DynamicHeaderRepository extends BaseRepository implements DynamicHeaderRep
     public function deleteMenu($obj, $request)
     {
         try {
-            $data = $this->recursiveDelete($request->id, $request->status);
+            $data = $this->recursivHeadereDelete($request->id, $request->status);
             if ($data) {
                 return $this->success(null, Constants::UPDATE, Response::HTTP_CREATED, true);
             } else {

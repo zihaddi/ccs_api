@@ -71,6 +71,22 @@ trait Helper
         $treeentry->save();
         return true;
     }
+    protected function recursivHeadereDelete($id, $status)
+    {
+        $query = TreeEntity::where('pid', '=', $id)->get();
+        if ($query->count() > 0) {
+            foreach ($query as $key => $value) {
+                $this->recursivHeadereDelete($value->id, $status);
+            }
+        }
+        $treeentry = TreeEntity::find($id);
+        if ($treeentry == null) {
+            return false;
+        }
+        $treeentry['status'] = $status;
+        $treeentry->save();
+        return true;
+    }
 
     protected function hasrolePermition($request, $type)
     {
