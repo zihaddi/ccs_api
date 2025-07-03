@@ -6,12 +6,12 @@
     <title>Accessimate API Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-md">
-        <h1 class="text-4xl font-bold text-gray-800">Welcome to the Accessimate API</h1>
-        <p class="text-gray-600 mt-4">This is the default home page for your API.</p>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="max-w-md p-8 text-center bg-white rounded-lg shadow-lg">
+        <h1 class="text-4xl font-bold text-gray-800">Welcome to the CCS API</h1>
+        <p class="mt-4 text-gray-600">This is the default home page for your API.</p>
         <p class="mt-2 text-gray-500">Version: <span class="font-semibold">1.0.0</span></p>
-        <a href="/api-docs" class="mt-6 inline-block px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+        <a href="/api-docs" class="inline-block px-6 py-3 mt-6 text-white transition bg-blue-600 rounded-lg shadow-md hover:bg-blue-700">
             View Documentation
         </a>
     </div>

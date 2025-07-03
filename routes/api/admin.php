@@ -44,6 +44,9 @@ use App\Http\Controllers\Api\Admin\DynamicHeaderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use PharIo\Manifest\Email;
+use App\Http\Controllers\Api\Admin\TvChannelController;
+use App\Http\Controllers\Api\Admin\TvProgramController;
+use App\Http\Controllers\Api\Admin\MediaContentController;
 
 //Auth
 Route::controller(AuthController::class)->group(function () {
@@ -111,19 +114,6 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('countries/restore/{id}', 'restore')->name('countries.restore');
     });
 
-    // Email Templates
-    Route::apiResource('email-templates', EmailTemplateController::class);
-    Route::controller(EmailTemplateController::class)->group(function () {
-        Route::post('email-templates/all', 'index')->name('email-templates.all');
-        Route::post('email-templates/restore/{id}', 'restore')->name('email-templates.restore');
-    });
-
-    // SMS Templates
-    Route::apiResource('sms-templates', SmsTemplateController::class);
-    Route::controller(SmsTemplateController::class)->group(function () {
-        Route::post('sms-templates/all', 'index')->name('sms-templates.all');
-        Route::post('sms-templates/restore/{id}', 'restore')->name('sms-templates.restore');
-    });
 
     //Faq Categories
     Route::apiResource('faq-categories', FaqCategoryController::class);
@@ -139,12 +129,6 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('faqs/restore/{id}', 'restore')->name('faqs.restore');
     });
 
-    //Gender
-    Route::apiResource('genders', GenderController::class);
-    Route::controller(GenderController::class)->group(function () {
-        Route::post('genders/all', 'index')->name('genders.all');
-        Route::post('genders/restore/{id}', 'restore')->name('genders.restore');
-    });
 
     //Language
     Route::apiResource('languages', LanguageController::class);
@@ -153,12 +137,7 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('languages/restore/{id}', 'restore')->name('languages.restore');
     });
 
-    //Meta
-    Route::apiResource('metas', MetaController::class);
-    Route::controller(MetaController::class)->group(function () {
-        Route::post('metas/all', 'index')->name('metas.all');
-        Route::post('metas/restore/{id}', 'restore')->name('metas.restore');
-    });
+
 
     //News Categories
     Route::apiResource('news-categories', NewsCategoryController::class);
@@ -174,19 +153,7 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('news/restore/{id}', 'restore')->name('news.restore');
     });
 
-    //Pages
-    Route::apiResource('pages', PageController::class);
-    Route::controller(PageController::class)->group(function () {
-        Route::post('pages/all', 'index')->name('pages.all');
-        Route::post('pages/restore/{id}', 'restore')->name('pages.restore');
-    });
 
-    //Payment Gateway
-    Route::apiResource('payment-gateways', PaymentGatewayController::class);
-    Route::controller(PaymentGatewayController::class)->group(function () {
-        Route::post('payment-gateways/all', 'index')->name('payment-gateways.all');
-        Route::post('payment-gateways/restore/{id}', 'restore')->name('payment-gateways.restore');
-    });
 
 
     //Release Notes
@@ -203,12 +170,7 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('social-links/restore/{id}', 'restore')->name('social-links.restore');
     });
 
-    //Tags
-    Route::apiResource('tags', TagController::class);
-    Route::controller(TagController::class)->group(function () {
-        Route::post('tags/all', 'index')->name('tags.all');
-        Route::post('tags/restore/{id}', 'restore')->name('tags.restore');
-    });
+
 
     //Tutorial Categories
     Route::apiResource('tutorial-categories', TutorialCategoryController::class);
@@ -231,68 +193,7 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('users/restore/{id}', 'restore')->name('users.restore');
     });
 
-    //Compliance
-    Route::apiResource('compliances', ComplianceController::class);
-    Route::controller(ComplianceController::class)->group(function () {
-        Route::post('compliances/all', 'index')->name('compliances.all');
-        Route::post('compliances/restore/{id}', 'restore')->name('compliances.restore');
-    });
 
-    //Currency
-    Route::apiResource('currencies', CurrencyController::class);
-    Route::controller(CurrencyController::class)->group(function () {
-        Route::post('currencies/all', 'index')->name('currencies.all');
-        Route::post('currencies/restore/{id}', 'restore')->name('currencies.restore');
-    });
-
-    //CustomerReview
-    Route::apiResource('customer-reviews', CustomerReviewController::class);
-    Route::controller(CustomerReviewController::class)->group(function () {
-        Route::post('customer-reviews/all', 'index')->name('customer-reviews.all');
-        Route::post('customer-reviews/restore/{id}', 'restore')->name('customer-reviews.restore');
-    });
-
-    //Plan
-    Route::apiResource('plans', PlanController::class);
-    Route::controller(PlanController::class)->group(function () {
-        Route::post('plans/all', 'index')->name('plans.all');
-        Route::post('plans/restore/{id}', 'restore')->name('plans.restore');
-    });
-
-    //Subscribe
-    Route::apiResource('subscribes', SubscribeController::class);
-    Route::controller(SubscribeController::class)->group(function () {
-        Route::post('subscribes/all', 'index')->name('subscribes.all');
-        Route::post('subscribes/restore/{id}', 'restore')->name('subscribes.restore');
-    });
-
-    //TrustedBrand
-    Route::apiResource('trusted-brands', TrustedBrandController::class);
-    Route::controller(TrustedBrandController::class)->group(function () {
-        Route::post('trusted-brands/all', 'index')->name('trusted-brands.all');
-        Route::post('trusted-brands/restore/{id}', 'restore')->name('trusted-brands.restore');
-    });
-
-    //Brands
-    Route::apiResource('brands', BrandController::class);
-    Route::controller(BrandController::class)->group(function () {
-        Route::post('brands/all', 'index')->name('brands.all');
-        Route::post('brands/restore/{id}', 'restore')->name('brands.restore');
-    });
-
-    //Partners
-    Route::apiResource('partners', PartnerController::class);
-    Route::controller(PartnerController::class)->group(function () {
-        Route::post('partners/all', 'index')->name('partners.all');
-        Route::post('partners/restore/{id}', 'restore')->name('partners.restore');
-    });
-
-    //Features
-    Route::apiResource('features', FeatureController::class);
-    Route::controller(FeatureController::class)->group(function () {
-        Route::post('features/all', 'index')->name('features.all');
-        Route::post('features/restore/{id}', 'restore')->name('features.restore');
-    });
 
     //Event Routes
     Route::apiResource('events', EventController::class);
@@ -306,12 +207,7 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('event-categories/all', 'index')->name('event-categories.all');
         Route::post('event-categories/restore/{id}', 'restore')->name('event-categories.restore');
     });
-    //Year Routes
-    Route::apiResource('years', YearController::class);
-    Route::controller(YearController::class)->group(function () {
-        Route::post('years/all', 'index')->name('years.all');
-        Route::post('years/restore/{id}', 'restore')->name('years.restore');
-    });
+
 
     Route::apiResource('contacts', ContactController::class)->only(['index', 'show', 'destroy']);
     Route::controller(ContactController::class)->group(function () {
@@ -319,19 +215,6 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('contacts/restore/{id}', 'restore')->name('contacts.restore');
     });
 
-    //Protfolio Category
-    Route::apiResource('portfolio-categories', PortfolioCategoryController::class);
-    Route::controller(PortfolioCategoryController::class)->group(function () {
-        Route::post('portfolio-categories/all', 'index')->name('portfolio-categories.all');
-        Route::post('portfolio-categories/restore/{id}', 'restore')->name('portfolio-categories.restore');
-    });
-
-    //Portfolio
-    Route::apiResource('portfolios', PortfolioController::class);
-    Route::controller(PortfolioController::class)->group(function () {
-        Route::post('portfolios/all', 'index')->name('portfolios.all');
-        Route::post('portfolios/restore/{id}', 'restore')->name('portfolios.restore');
-    });
 
     //Team members
     Route::apiResource('team-members', TeamMemberController::class);
@@ -350,4 +233,33 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
     });
 
     Route::apiResource('dynamic-header', DynamicHeaderController::class);
+
+    //TV Channels
+    Route::apiResource('tv-channels', TvChannelController::class);
+    Route::controller(TvChannelController::class)->group(function () {
+        Route::post('tv-channels/all', 'index')->name('tv-channels.all');
+        Route::post('tv-channels/restore/{id}', 'restore')->name('tv-channels.restore');
+    });
+
+    //TV Programs
+    Route::apiResource('tv-programs', TvProgramController::class);
+    Route::controller(TvProgramController::class)->group(function () {
+        Route::post('tv-programs/all', 'index')->name('tv-programs.all');
+        Route::post('tv-programs/restore/{id}', 'restore')->name('tv-programs.restore');
+    });
+
+    //Media Contents
+    Route::apiResource('media-contents', MediaContentController::class);
+    Route::controller(MediaContentController::class)->group(function () {
+    Route::post('media-contents/all', 'index')->name('media-contents.all');
+    Route::get('media-contents/slug/{slug}', 'showBySlug')->name('media-contents.show-by-slug');
+    Route::post('media-contents/restore/{id}', 'restore')->name('media-contents.restore');
+    Route::post('media-contents/toggle-featured/{id}', 'toggleFeatured')->name('media-contents.toggle-featured');
+    Route::post('media-contents/update-status/{id}', 'updateStatus')->name('media-contents.update-status');
+    Route::post('media-contents/featured', 'getFeatured')->name('media-contents.featured');
+    Route::post('media-contents/type/{contentType}', 'getByType')->name('media-contents.by-type');
+    Route::post('media-contents/channel/{channelId}', 'getByChannel')->name('media-contents.by-channel');
+    Route::post('media-contents/popular', 'getPopular')->name('media-contents.popular');
+    Route::post('media-contents/news-category/{newsCategory}', 'getByNewsCategory')->name('media-contents.by-news-category');
+});
 });

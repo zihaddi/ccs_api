@@ -32,6 +32,9 @@ use App\Http\Controllers\Api\Cms\EventController;
 use App\Http\Controllers\Api\Cms\YearController;
 use App\Http\Controllers\Api\Admin\TreeEntityController;
 use App\Http\Controllers\Api\Admin\DynamicHeaderController;
+use App\Http\Controllers\Api\Cms\TvChannelController;
+use App\Http\Controllers\Api\Cms\TvProgramController;
+use App\Http\Controllers\Api\Cms\MediaContentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,29 +50,16 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ISSUE_ACCESS_TOKEN
 
 Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value])->group(function () {
     Route::post('/me', [AuthClientController::class, 'getUser']);
-    Route::controller(ComplianceController::class)->group(function () {
-        Route::post('compliances', 'index')->name('compliances.index');
-        Route::post('compliances/{id}', 'show')->name('compliances.show');
-        Route::post('compliances/{slug}', 'showBySlug')->name('compliances.showBySlug');
-    });
+
     Route::controller(CountryInfoController::class)->group(function () {
         Route::post('countries', 'index')->name('countries.index');
         Route::post('countries/{id}', 'show')->name('countries.show');
         Route::post('countries/{slug}', 'showBySlug')->name('countries.showBySlug');
     });
 
-    Route::controller(CurrencyController::class)->group(function () {
-        Route::post('currencies', 'index')->name('currencies.index');
-        Route::post('currencies/{id}', 'show')->name('currencies.show');
-        Route::post('currencies/{slug}', 'showBySlug')->name('currencies.showBySlug');
-    });
 
-    //CustomerReview
-    Route::controller(CustomerReviewController::class)->group(function () {
-        Route::post('customer-reviews', 'index')->name('customer-reviews.index');
-        Route::post('customer-reviews/{id}', 'show')->name('customer-reviews.show');
-        Route::post('customer-reviews/{slug}', 'showBySlug')->name('customer-reviews.showBySlug');
-    });
+
+
 
     Route::controller(FaqController::class)->group(function () {
         Route::post('faqs', 'index')->name('faqs.index');
@@ -77,11 +67,7 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('faqs/{slug}', 'showBySlug')->name('faqs.showBySlug');
     });
 
-    Route::controller(GenderController::class)->group(function () {
-        Route::post('genders', 'index')->name('genders.index');
-        Route::post('genders/{id}', 'show')->name('genders.show');
-        Route::post('genders/{slug}', 'showBySlug')->name('genders.showBySlug');
-    });
+
 
     Route::controller(LanguageController::class)->group(function () {
         Route::post('languages', 'index')->name('languages.index');
@@ -89,11 +75,7 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('languages/{slug}', 'showBySlug')->name('languages.showBySlug');
     });
 
-    Route::controller(MetaController::class)->group(function () {
-        Route::post('metas', 'index')->name('metas.index');
-        Route::post('metas/{id}', 'show')->name('metas.show');
-        Route::post('metas/{slug}', 'showBySlug')->name('metas.showBySlug');
-    });
+
 
     Route::controller(NewsController::class)->group(function () {
         Route::post('news', 'index')->name('news.index');
@@ -101,23 +83,8 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('news/{slug}', 'showBySlug')->name('news.showBySlug');
     });
 
-    Route::controller(PageController::class)->group(function () {
-        Route::post('pages', 'index')->name('pages.index');
-        Route::post('pages/{id}', 'show')->name('pages.show');
-        Route::post('pages/{slug}', 'showBySlug')->name('pages.showBySlug');
-    });
 
-    Route::controller(PaymentGatewayController::class)->group(function () {
-        Route::post('payment-gateways', 'index')->name('payment-gateways.index');
-        Route::post('payment-gateways/{id}', 'show')->name('payment-gateways.show');
-        Route::post('payment-gateways/{slug}', 'showBySlug')->name('payment-gateways.showBySlug');
-    });
 
-    Route::controller(PlanController::class)->group(function () {
-        Route::post('plans', 'index')->name('plans.index');
-        Route::post('plans/{id}', 'show')->name('plans.show');
-        Route::post('plans/{slug}', 'showBySlug')->name('plans.showBySlug');
-    });
 
     Route::controller(ReleaseNoteController::class)->group(function () {
         Route::post('release-notes', 'index')->name('release-notes.index');
@@ -131,17 +98,7 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('social-links/{slug}', 'showBySlug')->name('social-links.showBySlug');
     });
 
-    Route::controller(TagController::class)->group(function () {
-        Route::post('tags', 'index')->name('tags.index');
-        Route::post('tags/{id}', 'show')->name('tags.show');
-        Route::post('tags/{slug}', 'showBySlug')->name('tags.showBySlug');
-    });
 
-    Route::controller(TrustedBrandController::class)->group(function () {
-        Route::post('trusted-brands', 'index')->name('trusted-brands.index');
-        Route::post('trusted-brands/{id}', 'show')->name('trusted-brands.show');
-        Route::post('trusted-brands/{slug}', 'showBySlug')->name('trusted-brands.showBySlug');
-    });
 
     Route::controller(TutorialController::class)->group(function () {
         Route::post('tutorials', 'index')->name('tutorials.index');
@@ -155,28 +112,6 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('tutorial-categories/{slug}', 'showBySlug')->name('tutorial-categories.showBySlug')->where('slug', '[a-zA-Z0-9\-]+');
     });
 
-    Route::controller(PartnerController::class)->group(function () {
-        Route::post('partners', 'index')->name('partners.index');
-        Route::post('partners/{id}', 'show')->name('partners.show');
-        Route::post('partners/{slug}', 'showBySlug')->name('partners.showBySlug');
-    });
-
-    Route::controller(FeatureController::class)->group(function () {
-        Route::post('features', 'index')->name('features.index');
-        Route::post('features/{id}', 'show')->name('features.show');
-        Route::post('features/{slug}', 'showBySlug')->name('features.showBySlug');
-    });
-
-    Route::controller(BrandController::class)->group(function () {
-        Route::post('brands', 'index')->name('brands.index');
-        Route::post('brands/{id}', 'show')->name('brands.show');
-        Route::post('brands/{slug}', 'showBySlug')->name('brands.showBySlug');
-    });
-
-    Route::group(['prefix' => 'year'], function () {
-        Route::post('/', [YearController::class, 'index']);
-        Route::post('/{id}', [YearController::class, 'show']);
-    });
 
     Route::group(['prefix' => 'event'], function () {
         Route::post('/', [EventController::class, 'index']);
@@ -213,6 +148,38 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
     Route::controller(DynamicHeaderController::class)->name('dynamic-header.')->prefix('dynamic-header')->group(function () {
         Route::get('show-menu', 'showmenu')->name('show-menu');
 
+    });
+
+
+    //TV Channels
+    Route::controller(TvChannelController::class)->group(function () {
+        Route::post('tv-channels', 'index')->name('tv-channels.index');
+        Route::post('tv-channels/{id}', 'show')->name('tv-channels.show')->where('id', '[0-9]+');
+        Route::post('tv-channels/{slug}', 'showBySlug')->name('tv-channels.showBySlug')->where('slug', '[a-zA-Z0-9\-]+');
+    });
+
+    //TV Programs
+    Route::controller(TvProgramController::class)->group(function () {
+        Route::post('tv-programs', 'index')->name('tv-programs.index');
+        Route::post('tv-programs/{id}', 'show')->name('tv-programs.show')->where('id', '[0-9]+');
+        Route::post('tv-programs/{slug}', 'showBySlug')->name('tv-programs.showBySlug')->where('slug', '[a-zA-Z0-9\-]+');
+        Route::post('tv-programs/channel/{channelId}', 'getByChannel')->name('tv-programs.by-channel');
+        Route::post('tv-programs/today', 'getToday')->name('tv-programs.today');
+        Route::post('tv-programs/type/{type}', 'getByType')->name('tv-programs.by-type');
+    });
+
+    //Media Contents
+    Route::controller(MediaContentController::class)->group(function () {
+        Route::post('media-contents', 'index')->name('media-contents.index');
+        Route::post('media-contents/{id}', 'show')->name('media-contents.show')->where('id', '[0-9]+');
+        Route::post('media-contents/slug/{slug}', 'showBySlug')->name('media-contents.show-by-slug')->where('slug', '[a-zA-Z0-9\-_]+');
+        Route::post('media-contents/featured', 'getFeatured')->name('media-contents.featured');
+        Route::post('media-contents/type/{contentType}', 'getByType')->name('media-contents.by-type');
+        Route::post('media-contents/channel/{channelId}', 'getByChannel')->name('media-contents.by-channel');
+        Route::post('media-contents/popular', 'getPopular')->name('media-contents.popular');
+        Route::post('media-contents/recent', 'getRecent')->name('media-contents.recent');
+        Route::post('media-contents/search/{searchTerm}', 'search')->name('media-contents.search');
+        Route::post('media-contents/news-category/{newsCategory}', 'getByNewsCategory')->name('media-contents.by-news-category');
     });
 
 });

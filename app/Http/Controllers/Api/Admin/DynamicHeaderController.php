@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\DynamicHeader\DynamicHeaderStoreRequest;
-use App\Http\Requests\Admin\DynamicHeader\DynamicHeaderUpdateMenuRequest;
 use App\Http\Requests\Admin\DynamicHeader\DynamicHeaderUpdateRequest;
 use App\Interfaces\Admin\DynamicHeaderRepositoryInterface;
 use App\Models\DynamicHeader;
@@ -117,7 +116,7 @@ class DynamicHeaderController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateMenu(DynamicHeader $obj, DynamicHeaderUpdateMenuRequest $request)
+    public function updateMenu(DynamicHeader $obj, DynamicHeaderUpdateRequest $request)
     {
         return $this->treeEntityRepository->updatemenu($obj, $request->all());
     }

@@ -13,9 +13,6 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
         then: function () {
-            Route::prefix('api/customer')
-                ->middleware('api')
-                ->group(base_path('routes/api/customer.php'));
             Route::prefix('api/admin')
                 ->middleware('api')
                 ->group(base_path('routes/api/admin.php'));
@@ -29,7 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
             'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
             'check.permission' => App\Http\Middleware\CheckPermission::class,
-            'verify.paypal.webhook' => App\Http\Middleware\VerifyPayPalWebhook::class,
+
         ]);
         $middleware->append(HandleHttpRequest::class);
     })

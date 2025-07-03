@@ -1,33 +1,3 @@
-# Contributors
-
-## Core Team
-
-### Project Lead & Main Developer
-- **Motakabbir** ([@Motakabbir](https://github.com/Motakabbir))
-  - Project architecture
-  - Core API development
-  - Team leadership
-
-### Backend Developers
-- **Ashiq** ([@ashiq](https://github.com/ashiq))
-  - API development
-  - Authentication system
-  - Performance optimization
-
-- **Faysal** ([@zihaddi](https://github.com/zihaddi))
-  - Database design
-  - Query optimization
-  - API documentation
-
-## Contributing
-
-We love your input! We want to make contributing to Accesimate API as easy and transparent as possible, whether it's:
-
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
-- Becoming a maintainer
 
 ### Development Process
 
