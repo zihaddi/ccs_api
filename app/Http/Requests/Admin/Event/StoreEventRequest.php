@@ -24,12 +24,13 @@ class StoreEventRequest extends FormRequest
             'category_id' => ['required', 'exists:event_categories,id'],
             'description' => ['nullable', 'string'],
             'photo' => ['nullable', 'string'],
+            'event_at' => ['nullable', 'date'],
             'status' => ['required', 'boolean'],
             'details' => ['nullable', 'array'],
             'details.*.year_id' => ['required', 'exists:years,id'],
             'details.*.venue' => ['required', 'string', 'max:255'],
-            'details.*.start_date' => ['required'],
-            'details.*.end_date' => ['nullable'],
+            'details.*.start_date' => ['required', 'date'],
+            'details.*.end_date' => ['required', 'date', 'after_or_equal:details.*.start_date'],
             'details.*.status' => ['required', 'boolean'],
         ];
     }

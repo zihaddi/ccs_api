@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accessimate API Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" data-account="Lxoe73FIpciPnfBoIFmnwQI4zOOvtGfr67NEwLsp"] src="https://dev-script.accessimate.com/js/main.js"></script> 
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="max-w-md p-8 text-center bg-white rounded-lg shadow-lg">

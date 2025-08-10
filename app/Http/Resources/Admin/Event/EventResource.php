@@ -23,6 +23,7 @@ class EventResource extends JsonResource
             'category_id' => $this->category_id,
             'description' => $this->description,
             'photo' => $this->photo,
+            'event_at' => $this->event_at ? $this->event_at->format('Y-m-d H:i:s') : null,
             'status' => $this->status,
             'deleted_at' => $this->deleted_at ? $this->deleted_at->format('Y-m-d H:i:s') : null,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),

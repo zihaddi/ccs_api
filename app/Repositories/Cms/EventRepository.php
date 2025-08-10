@@ -82,4 +82,61 @@ class EventRepository implements EventRepositoryInterface
             return $this->error(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR, false);
         }
     }
+
+
+    public function getUpcomingEvents($obj, $request)
+    {
+        try {
+            $query = $obj::with(['category', 'details'])
+                ->upcoming()
+                ->filter((array)$request);
+
+            $query = $query->when(
+                isset($request['paginate']) && $request['paginate'] == true,
+                function ($query) use ($request) {
+                    return $query->paginate($request['length'] ?? $request['length'] = 15)->withQueryString();
+                },
+                function ($query) {
+                    return $query->get();
+                }
+            );
+
+            if ($query) {
+                $data = EventResource::collection($query)->response()->getData();
+                return $this->success($data, 'Upcoming events retrieved successfully', Response::HTTP_OK, true);
+            } else {
+                return $this->error(null, 'No upcoming events found', Response::HTTP_NOT_FOUND, false);
+            }
+        } catch (\Exception $e) {
+            return $this->error(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR, false);
+        }
+    }
+
+    public function getCompletedEvents($obj, $request)
+    {
+        try {
+            $query = $obj::with(['category', 'details'])
+                ->completed()
+                ->filter((array)$request);
+
+            $query = $query->when(
+                isset($request['paginate']) && $request['paginate'] == true,
+                function ($query) use ($request) {
+                    return $query->paginate($request['length'] ?? $request['length'] = 15)->withQueryString();
+                },
+                function ($query) {
+                    return $query->get();
+                }
+            );
+
+            if ($query) {
+                $data = EventResource::collection($query)->response()->getData();
+                return $this->success($data, 'Completed events retrieved successfully', Response::HTTP_OK, true);
+            } else {
+                return $this->error(null, 'No completed events found', Response::HTTP_NOT_FOUND, false);
+            }
+        } catch (\Exception $e) {
+            return $this->error(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR, false);
+        }
+    }
 }

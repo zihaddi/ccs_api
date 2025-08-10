@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\Admin\DynamicHeaderController;
 use App\Http\Controllers\Api\Cms\TvChannelController;
 use App\Http\Controllers\Api\Cms\TvProgramController;
 use App\Http\Controllers\Api\Cms\MediaContentController;
+use App\Http\Controllers\Api\Cms\SurveyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -113,11 +114,13 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
     });
 
 
-    Route::group(['prefix' => 'event'], function () {
+     Route::group(['prefix' => 'event'], function () {
         Route::post('/', [EventController::class, 'index']);
-        Route::post('/{id}', [EventController::class, 'show']);
+        Route::post('/upcoming', [EventController::class, 'upcoming']);
+        Route::post('/completed', [EventController::class, 'completed']);
+        Route::post('/slug/{slug}', [EventController::class, 'showBySlug'])->where('slug', '[a-zA-Z0-9\-]+');
+        Route::post('/{id}', [EventController::class, 'show'])->where('id', '[0-9]+');
     });
-
     Route::group(['prefix' => 'event-category'], function () {
         Route::post('/', [EventCategoryController::class, 'index']);
         Route::post('/{id}', [EventCategoryController::class, 'show']);
@@ -180,6 +183,14 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
         Route::post('media-contents/recent', 'getRecent')->name('media-contents.recent');
         Route::post('media-contents/search/{searchTerm}', 'search')->name('media-contents.search');
         Route::post('media-contents/news-category/{newsCategory}', 'getByNewsCategory')->name('media-contents.by-news-category');
+    });
+
+    // Survey routes
+    Route::group(['prefix' => 'survey'], function () {
+        Route::post('/current', [SurveyController::class, 'getCurrentSurvey']);
+        Route::post('/older', [SurveyController::class, 'getOlderSurveys']);
+        Route::post('/{surveyId}/results', [SurveyController::class, 'getSurveyResults']);
+        Route::post('/{surveyId}/respond', [SurveyController::class, 'submitResponse']);
     });
 
 });

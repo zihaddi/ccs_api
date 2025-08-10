@@ -66,6 +66,7 @@ class EventRepository extends BaseRepository implements EventRepositoryInterface
                 'slug' => $request['slug'],
                 'category_id' => $request['category_id'],
                 'description' => $request['description'],
+                'event_at' => $request['event_at'] ?? null,
                 'status' => $request['status']
             ]);
 

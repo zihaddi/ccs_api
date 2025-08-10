@@ -27,9 +27,15 @@ class Event extends Model
         'description',
         'status',
         'photo',
+        'event_at',
         'created_by',
         'modified_by',
         'deleted_at',
+    ];
+
+    protected $casts = [
+        'event_at' => 'datetime',
+        'status' => 'boolean',
     ];
 
     public function getPhotoAttribute($value)
@@ -80,7 +86,25 @@ class Event extends Model
             } elseif ($trashed === 'only') {
                 $query->onlyTrashed();
             }
+        })->when($filters['event_at_from'] ?? null, function ($query, $from) {
+            $query->where('event_at', '>=', $from);
+        })->when($filters['event_at_to'] ?? null, function ($query, $to) {
+            $query->where('event_at', '<=', $to);
         });
+    }
+
+    public function scopeUpcoming($query)
+    {
+        return $query->where('event_at', '>=', now())
+                    ->where('status', true)
+                    ->orderBy('event_at', 'asc');
+    }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('event_at', '<', now())
+                    ->where('status', true)
+                    ->orderBy('event_at', 'desc');
     }
 
     protected static function boot()

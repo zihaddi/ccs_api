@@ -30,4 +30,13 @@ class EventController extends Controller
     {
         return $this->client->showBySlug($obj, $slug);
     }
+    public function upcoming(Event $obj, Request $request)
+    {
+        return $this->client->getUpcomingEvents($obj, $request->all());
+    }
+
+    public function completed(Event $obj, Request $request)
+    {
+        return $this->client->getCompletedEvents($obj, $request->all());
+    }
 }

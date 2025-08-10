@@ -47,6 +47,7 @@ use PharIo\Manifest\Email;
 use App\Http\Controllers\Api\Admin\TvChannelController;
 use App\Http\Controllers\Api\Admin\TvProgramController;
 use App\Http\Controllers\Api\Admin\MediaContentController;
+use App\Http\Controllers\Api\Admin\SurveyController;
 
 //Auth
 Route::controller(AuthController::class)->group(function () {
@@ -261,5 +262,18 @@ Route::middleware(['auth:sanctum', 'ability:' . TokenAbility::ACCESS_API->value]
     Route::post('media-contents/channel/{channelId}', 'getByChannel')->name('media-contents.by-channel');
     Route::post('media-contents/popular', 'getPopular')->name('media-contents.popular');
     Route::post('media-contents/news-category/{newsCategory}', 'getByNewsCategory')->name('media-contents.by-news-category');
+
+
+    Route::controller(SurveyController::class)->group(function () {
+        Route::get('surveys', 'index')->name('surveys.index');
+        Route::post('surveys', 'store')->name('surveys.store');
+        Route::get('surveys/stats', 'getSurveyStats')->name('surveys.stats');
+        Route::get('surveys/{survey}', 'show')->name('surveys.show');
+        Route::put('surveys/{survey}', 'update')->name('surveys.update');
+        Route::delete('surveys/{survey}', 'destroy')->name('surveys.destroy');
+        Route::patch('surveys/{survey}/restore', 'restore')->name('surveys.restore');
+        Route::delete('surveys/{survey}/force-delete', 'forceDelete')->name('surveys.force-delete');
+        Route::get('surveys/{survey}/responses', 'getSurveyResponses')->name('surveys.responses');
+    });
 });
 });
